@@ -7,11 +7,17 @@
 " Show a few lines of context around the cursor. Note that this makes the
 " text scroll if you mouse-click near the start or end of the window.
 
+"" scrolloff is used to set the number of lines to keep above and below the cursor when scrolling.
+"" This is useful to keep the cursor in the middle of the screen when scrolling. Which makes the code more readable.
+
 set scrolloff=8
+
 "Clipboard copying and pasting"
+"" (By default copying and pasting in vim is not the same as in other editors, 
+"" so this configuration makes the copying and pasting from clipboard available from Normal mode)
+
 set clipboard+=unnamed
 "Turns off annoying system sounds on windows"
-
 set visualbell
 set noerrorbells
 
@@ -27,9 +33,36 @@ map Q gq
 Plug 'machakann/vim-highlightedyank'
 
 " Commentary plugin
+" Comment out lines or blocks of code with the gc shortcut, this plugin is very useful for commenting out code
+" and for uncommenting code as well with this kind of shortcut programmer doesn't have to write the comment symbol
+" and the uncomment symbol, the plugin does it. Which saves time and effort. 
+"TODO
+"(I'm not sure for which language this plugin works)
+
 Plug 'tpope/vim-commentary'
+
+"easymotion plugin (Check how it works)
+
 Plug 'easymotion/vim-easymotion'
+"Nerd tree check how it works and the alternatives
+
 Plug 'preservim/nerdtree'
+
+"" Matchit
+Plug 'vim-matchit'
+Plug 'chrisbra/matchit'
+Plug 'kana/vim-textobj-entire'
+
+set matchit
+
+packadd matchit
+vnoremap p "_dP
+
+"vnoremap This maps the keys in visual mode and selects a rang of text.
+"p this is the command that is being mapped to the keys
+" "_d this is the command that is being mapped to the keys it is using the
+" black hole register to delete the text that is being yanked to ensure that
+" the default register is not overwritten.
 
 filetype plugin indent on
 "" NERDTreeNavigation
@@ -52,6 +85,9 @@ let g:NERDTreeMapActivateNode = ' '
 ":NERDTreeClose
 ":NERDTreeFind
 
+"" relativenumber and number are used to show the line numbers in the editor, the difference between them is that 
+"" relativenumber shows the line number relative to the current line, and number shows the line number of the current line.
+
 set number relativenumber
 set ideajoin
 set easymotion
@@ -59,10 +95,13 @@ set surround
 
 "" Leader key
 let mapleader = " "
-
 "" Navigation
+"" Sometimes the programmer has to switch between tabs, so it is useful to have a shortcut for this, this is the configuration for the shortcuts
 nmap <S-h> :action PreviousTab<CR>
 nmap <S-l> :action NextTab<CR>
+"" How the shortcuts work: n means normal mode, map means that we are going to map a key, <S-h> means that we are going to use the shift key and the h key, 
+"" :action means that we are going to execute an action, PreviousTab and NextTab are the actions that we are going to execute, <CR> is the enter key.
+"" (WARNING!! I'm not sure if the <CR> Commands is necessary for the shortcuts to work, but I'm going to leave it here just in case)
 
 nmap <c-n> :NERDTree<CR>
 nmap <C-e> :NERDTreeFocus<CR>
@@ -76,7 +115,6 @@ nmap <c-m> :action MoveEditorToOppositeTabGroup<CR>
 
 sethandler <c-j> a:vim
 sethandler <c-k> a:vim
-
 
 "" Move between tabs
 nmap <Leader>h <c-w>h
@@ -93,3 +131,4 @@ nmap <Leader>k <c-w>k
 
 "" Map \b to toggle the breakpoint on the current line
 "map \b <Action>(ToggleLineBreakpoint)
+
